@@ -1,0 +1,15 @@
+defmod test_modules UnitTest global (
+ {
+	my @modulesToTest=qw/98_DOIF.pm 98_DOIFtools.pm 33_readingsGroup.pm 50_TelegramBot.pm/; 
+	
+ 	subtest 'Syntax Check Modules ' => sub {
+		plan tests => scalar @modulesToTest;
+		for my $module (@modulesToTest)
+		{
+			my $returncode = CommandReload(undef,$module);
+			is($returncode, undef, "check $module ");
+		};
+	}; 
+
+ };
+);

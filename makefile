@@ -1,6 +1,5 @@
 deploylocal : fhem_kill
 	sudo cp FHEM/*.pm /opt/fhem/FHEM/
-	sudo timeout 3 killall -qws2 perl || sudo killall -qws9 perl || true
 	sudo rm /opt/fhem/log/fhem-*.log || true
 	sudo cp test/fhem.cfg /opt/fhem/fhem.cfg
 	sudo rm /opt/fhem/log/fhem.save || true
@@ -30,7 +29,7 @@ fhem_start: deploylocal
 
 fhem_kill:
 	@echo === finished unit tests ===
-	sudo timeout 30 killall -vw perl || sudo killall -vws9 perl
+	sudo timeout 30 killall -vw perl || sudo killall -vws9 perl || true
 
 test:  | fhem_start test_all 
 	@echo === running unit tests ===

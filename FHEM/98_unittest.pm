@@ -12,7 +12,7 @@ use warnings;
 use Mock::Sub (no_warnings => 1);
 use Test::More;
 use Data::Dumper qw(Dumper);
-
+use JSON qw(encode_json decode_json);
 
 # FHEM Modulfunktionen
 

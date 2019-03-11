@@ -1,6 +1,6 @@
 defmod test_modules UnitTest global (
  {
-	my @modulesToTest=qw/98_DOIF.pm 98_DOIFtools.pm 33_readingsGroup.pm 50_TelegramBot.pm/; 
+	my @modulesToTest=qw/98_DOIF.pm 98_DOIFtools.pm 33_readingsGroup.pm/; 
 	
  	subtest 'Syntax Check Modules ' => sub {
 		plan tests => scalar @modulesToTest;

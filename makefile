@@ -31,11 +31,11 @@ test_all: test_commandref deploylocal fhem_start |  ${SOURCES}
 	@echo === TEST_ALL done ===
 
 fhem_start: deploylocal
-	cd /opt/fhem && perl -MDevel::Cover fhem.pl fhem.cfg && cd ${MAKEFILE_DIR}
+	cd /opt/fhem && perl fhem.pl fhem.cfg && cd ${MAKEFILE_DIR}
 	@echo === ready for unit tests ===
 fhem_kill:
 	@echo === finished unit tests ===
-	@sudo pkill -f -x "perl -MDevel::Cover fhem.pl fhem.cfg" || true
+	@sudo pkill -f -x "perl fhem.pl fhem.cfg" || true
 
 test:  | fhem_start test_all 
 	@echo === running unit tests ===

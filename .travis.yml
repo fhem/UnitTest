@@ -25,6 +25,7 @@ install:
 
 script:
 - make test -j2
+- make fhem_kill
 - ./build_controls_list.sh
 - git commit -m "Travis automatic update controls file. Build (${TRAVIS_BUILD_NUMBER})
   [skip ci]" ./controls_unittest.txt || true

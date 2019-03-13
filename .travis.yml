@@ -19,7 +19,8 @@ before_install:
 - echo "deb http://debian.fhem.de/nightly/ /" | sudo tee -a /etc/apt/sources.list
 install:
  - sudo apt-get update -qq 
- - sudo apt-get install fhem -y & cpanm File::Find File::Basename Mock::Sub Test::More Test::Device::SerialPort JSON --notest & wait
+ - cpanm File::Find File::Basename Mock::Sub Test::More Test::Device::SerialPort JSON --notest
+ - sudo apt-get install fhem -qq -y 
  - sudo chown travis -R /opt/fhem
 
 script:

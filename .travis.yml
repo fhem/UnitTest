@@ -4,7 +4,7 @@ language: perl
 perl:
 - '5.26'
 - '5.24'
-- '5.18'
+- '5.22'
 env:
   global:
     secure: Fk8t0icPoREVjHgBHqeFL0N0+o0s/f+AVE85PlfaxJ0GLSEwUdY17t8qI9rsnscco2EvVkgxaktEuUCZB5t7ang6ndrlo75PMiyrblFMzjHAkpasOiFE6ysc2ykdtwxBliRc71TYRrciRiVQUDf3mpef6vAa1zvQ1Ii1pTF5sua1eoamETwafAjuJvY9fohMKaVCOmHcv89vhbWzkptQiVXq5afoN69iOQawLUr5DdAHhVEF1CGGX5vzUS+25tvQqpoyrrH2Mqenhs3O1PK9fSJJsRf6B9PsorZhcKa66lFZsKOa3dyCYhlT4eyhecK1eAP8OKZDAKOP4sNK5Psik8/EOrbCGcZnKbZ/QtjJr44+40IyaWv/YgSxB5ZbR3HOHxKXFvjDfKa1EJ/xtf3YSik3XM6Mixfiu8iy5h+n1HkDGYI5K1IshfK5sGMUUJiPQEPW43MOOuAv131QV9wPqwUYG1+o/RSjxse3BgTGAFc/1eMbmYdfGv6qFp31ogJJDjUl7fSQ7rEtcYD1AbTy5nPPy3AG658A5fbTceJEH5WIuUMyYljTPA4kS7Rbp0gus+sxqDiET8inpULa973sCW4W2Sh785aUJHghYDDSJkKhhrZ/jrX+alidw9CF2slaj0+Rdlq8WQN2F/jySUSjYfSwu3/Fvbv61Uril5Imw1U=

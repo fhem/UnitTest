@@ -5,8 +5,9 @@
 # Return 7 testfile was not found
 # Return 254 no connection to fhem process possible
 # Return 255 if fhemcl.sh was not found
+SELF_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-FHEM_SCRIPT="./test/fhemcl.sh"
+FHEM_SCRIPT="${SELF_DIR}/fhemcl.sh"
 FHEM_HOST="localhost"
 FHEM_PORT=8083
 VERBOSE=0
@@ -16,10 +17,13 @@ if [ ! -z $2 ]; then
   fi
 fi
 
+
 if [ ! -f $FHEM_SCRIPT ]; then
 		exit 255
 fi
-if [ ! -f "test/$1-definition.txt" ]; then
+TEST_FILE="tests/$1-definition.txt";
+
+if [ ! -f ${TEST_FILE} ]; then
 		exit 7
 fi
 
@@ -59,7 +63,7 @@ printf "\n\n--------- Starting test %s: ---------\n" "$1"
 # Load test definitions, and import them to our running instance
 oIFS=$IFS
 IFS=$'\n'  # Split into array at every "linebreak" 
-command eval CMD='($(<test/$1-definition.txt))'
+command eval CMD="(\$(<${TEST_FILE}))"
 IFS=$oIFS
 unset oIFS  
 command eval DEF='$(printf "%s" ${CMD[@]})'  
@@ -74,7 +78,7 @@ CMD=$( echo $CMD | sed '/{/,/}/s/;/;;/g') # double every ;
 
 #echo $CMD
 #RETURN=$(perl $FHEM_SCRIPT 7072 "$CMD")
-#RETURN=$(cat "test/$1-definition.txt" | $FHEM_SCRIPT $FHEM_PORT)
+#RETURN=$(cat "../tests/$1-definition.txt" | $FHEM_SCRIPT $FHEM_PORT)
 RETURN=$(echo $CMD | $FHEM_SCRIPT $FHEM_PORT)
 echo "$RETURN"
 

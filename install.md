@@ -2,6 +2,9 @@
 
 To run unittests a Test enviroment is needed. 
 
+- Fhem installation in /opt/fhem
+- Experience in perl
+- Knowledge of Test::More 
 
 ### Requirements for 98_UnitTest.pm ###
 
@@ -12,23 +15,27 @@ You should not run the UnitTests on a productive used fhem installation.
 On Systems with low memory, use [cpanm](https://metacpan.org/pod/App::cpanminus)
  for installing the packages.
 
-2. copy the module 98_UnitTests.pm into /opt/fhem/FHEM directory
+2. You can use make for running the tests. There is a makefile which will prepare your fhem installation for running the tests.
+- stop any running fhem instance
+- copy the module into the fhem  directory /opt/fhem/FHEM
+- copy a minimal config file for fhem fhem_ut.cfg and start fhem with this configfile.
+- run the tests in the tests directory. They must be named <name of test>-definition.txt
+- cleans up logfiles
+- stop fhem
 
-3.Copy the test fhem.cfg provided in this repository for a minimal setup to your fhem directory.
-`cp test/fhem.cfg /opt/fhem/fhem-unittest.cfg`
+ 
 
-4. Start fhem with the provided config file
 
 Now you can start defining a unittest
 
 ```
 cd /opt/fhem
-perl fhem.pl fhem-unittest.cfg
+perl fhem.pl fhem.cfg
 ```
 
 
 ### Requirements for test-runner.sh ### 
-Optional you can run tests from the commandline.
+You can run tests from the commandline. Make will do this for you automatic
 
 Currently test-runner searches logfiles in /opt/fhem. So you can install your test instance of fhem into a separate directoy but you must link the logfile to /opt/fhem  
 Unit Testfiles are searched in the directory test.  
@@ -43,7 +50,7 @@ defmod my_Test_1 UnitTest dummyDuino ({} )
 Now you have a placeholder for defining your code.
 Open the DEF from this device an put any perl code inside the {} brackets.
 
-Note: the Name dummyDuino must be the name of a existing definition you want to run tests on. If you startet fhem with the provided minimal `fhem-unittest.cfg`, then this Device of type SIGNALduino named dummyDuino.
+Note: the Name dummyDuino must be the name of a existing definition you want to run tests on. If you startet fhem with the provided minimal `fhem-ut.cfg`, then there is no Device of type SIGNALduino named dummyDuino. You can also use the Device WEB or global.
 
 In your testcode you can run any perl command.
 

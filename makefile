@@ -65,6 +65,6 @@ fhem_kill:
 
 test:  | fhem_start test_all 
 	@echo === Running unit tests ===
-	$(MAKE) 
+	# $(MAKE)
 
 

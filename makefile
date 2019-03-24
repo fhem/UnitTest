@@ -2,6 +2,7 @@
 space:=
 space+=
 
+PERL_OPTS?=
 
 	
 MAKEFILE_DIR:=$(subst $(space),\$(space),$(shell dirname $(subst $(space),\$(space),$(realpath $(lastword $(MAKEFILE_LIST))))))
@@ -46,6 +47,7 @@ init:
 	@echo "       CURDIR: ${CURDIR_ESCAPED}"
 	@echo "MAKEFILE_LIST: $(MAKEFILE_LIST)"
 	@echo " MAKEFILE_DIR: $(MAKEFILE_DIR)"
+	@echo "    REPO_NAME: $(REPO_NAME)"
 	
 
 test_all: test_commandref deploylocal fhem_start |  ${SOURCES}
@@ -53,11 +55,11 @@ test_all: test_commandref deploylocal fhem_start |  ${SOURCES}
 
 fhem_start: deploylocal
 	@echo === Starting FHEM ===
-	cd /opt/fhem && perl fhem.pl fhem_ut.cfg && cd ${CURDIR_ESCAPED}
+	cd /opt/fhem && perl ${PERL_OPTS} fhem.pl fhem_ut.cfg && cd ${CURDIR_ESCAPED}
 
 fhem_kill:
 	@echo === kill FHEM processes ===
-	@sudo pkill -f -x "perl fhem.pl fhem*.cfg" || true
+	@sudo pkill -f -x "perl ${PERL_OPTS} fhem.pl fhem*.cfg" || true
 
 test:  | fhem_start test_all 
 	@echo === Running unit tests ===

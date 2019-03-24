@@ -13,7 +13,7 @@ TEST_RUNNER := ${MAKEFILE_DIR}/src/test-runner.sh
 # download shell scripts for running unittest
 setupEnv:  src/fhemcl.sh src/test-runner.sh
 	@echo "=== Downloading 98_unittest.pm ->  /opt/fhem/FHEM ==="
-	@[ -d /opt/fhem/FHEM/ ] && wget -O /opt/fhem/FHEM/98_unittest.pm https://raw.githubusercontent.com/RFD-FHEM/UnitTest/master/FHEM/98_unittest.pm
+	@[ -d /opt/fhem/FHEM/ ] && sudo wget -O /opt/fhem/FHEM/98_unittest.pm https://raw.githubusercontent.com/RFD-FHEM/UnitTest/master/FHEM/98_unittest.pm
 
 src/%.sh:
 	@echo "=== Downloading $@ ==="

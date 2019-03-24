@@ -18,12 +18,12 @@ if [ ! -z $2 ]; then
 fi
 
 
-if [ ! -f $FHEM_SCRIPT ]; then
+if [ ! -f "$FHEM_SCRIPT" ]; then
 		exit 255
 fi
-TEST_FILE="tests/$1-definition.txt";
+TEST_FILE="${SELF_DIR}/../tests/$1-definition.txt";
 
-if [ ! -f ${TEST_FILE} ]; then
+if [ ! -f "${TEST_FILE}" ]; then
 		exit 7
 fi
 
@@ -63,7 +63,7 @@ printf "\n\n--------- Starting test %s: ---------\n" "$1"
 # Load test definitions, and import them to our running instance
 oIFS=$IFS
 IFS=$'\n'  # Split into array at every "linebreak" 
-command eval CMD="(\$(<${TEST_FILE}))"
+command eval CMD="(\$(<'${TEST_FILE}'))"
 IFS=$oIFS
 unset oIFS  
 command eval DEF='$(printf "%s" ${CMD[@]})'  

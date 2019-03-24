@@ -51,10 +51,10 @@ if [ -z $cmdarray ]; then
             readarray -t cmdarray < "${2}"
         else
         #echo "Reading further parameters"
-        for ((a=2; a<=${#}; a++)); do
+        for ((a=2; a<=${#}; a++)) {
             #echo "command specified: ${!a}"
             cmdarray+=("${!a}")
-        done
+        }
         fi
 fi
 if [ -z $cmdarray ]; then

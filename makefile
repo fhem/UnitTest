@@ -9,16 +9,20 @@ CURDIR_ESCAPED := $(subst $(space),\$(space),$(CURDIR))
 SOURCES := $(shell test -d ${MAKEFILE_DIR}/tests && find ${MAKEFILE_DIR}/tests -maxdepth 1 -name 'test_*-definition.txt')
 SOURCES := $(subst -definition.txt,,$(filter test%-definition.txt,$(notdir $(SOURCES))))
 TEST_RUNNER := ${MAKEFILE_DIR}/src/test-runner.sh
+REPO_NAME := $(shell basename -s .git `git config --get remote.origin.url`)
 
 # download shell scripts for running unittest
-setupEnv:  src/fhemcl.sh src/test-runner.sh
-	@echo "=== Downloading 98_unittest.pm ->  /opt/fhem/FHEM ==="
-	@[ -d /opt/fhem/FHEM/ ] && sudo wget -O /opt/fhem/FHEM/98_unittest.pm https://raw.githubusercontent.com/RFD-FHEM/UnitTest/master/FHEM/98_unittest.pm
+ifneq ($(REPO_NAME),UnitTest)
 
-src/%.sh:
-	@echo "=== Downloading $@ ==="
-	@mkdir -p $(MAKEFILE_DIR)/src
-	@wget -O $(MAKEFILE_DIR)/$@ https://raw.githubusercontent.com/RFD-FHEM/UnitTest/master/$@
+	setupEnv:  src/fhemcl.sh src/test-runner.sh
+		@echo "=== Downloading 98_unittest.pm ->  /opt/fhem/FHEM ==="
+		@[ -d /opt/fhem/FHEM/ ] && sudo wget -O /opt/fhem/FHEM/98_unittest.pm https://raw.githubusercontent.com/RFD-FHEM/UnitTest/master/FHEM/98_unittest.pm
+
+	src/%.sh:
+			@echo "=== Downloading $@ ==="
+			@mkdir -p $(MAKEFILE_DIR)/src
+			@wget -O $(MAKEFILE_DIR)/$@ https://raw.githubusercontent.com/RFD-FHEM/UnitTest/master/$@
+endif
 
 deploylocal : fhem_kill
 	@echo "=== Deploy and start FHEM ==="

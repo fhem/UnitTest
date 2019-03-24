@@ -1,4 +1,4 @@
-.PHONY: fhem_start fhem_kill test test_all setupEnv info deploylocal
+.PHONY: fhem_start fhem_kill test test_all setupEnv info deploylocal clean
 space:=
 space+=
 
@@ -21,6 +21,8 @@ src/%.sh:
 	@echo "=== Downloading $@ ==="
 	@mkdir -p $(MAKEFILE_DIR)/src
 	@wget -O $(MAKEFILE_DIR)/$@ https://raw.githubusercontent.com/RFD-FHEM/UnitTest/master/$@
+clean:
+	@rm ${MAKEFILE_DIR}/src/fhemcl.sh && rm ${MAKEFILE_DIR}/src/test-runner.sh || true
 endif
 
 deploylocal : fhem_kill
@@ -64,4 +66,5 @@ fhem_kill:
 test:  | fhem_start test_all 
 	@echo === Running unit tests ===
 	$(MAKE) 
+
 

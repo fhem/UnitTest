@@ -61,7 +61,7 @@ fhem_start: deploylocal
 
 fhem_kill:
 	@echo === kill FHEM processes ===
-	@sudo pkill -f -x "perl ${PERL_OPTS} fhem.pl fhem*.cfg" || true
+	@sudo pkill -f -x "perl.*fhem.pl.*" || true
 
 test:  | fhem_start test_all 
 	@echo === Running unit tests ===

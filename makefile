@@ -41,7 +41,7 @@ test_%: fhem_start
     rm $$d
 test_commandref:
 	@echo "=== running commandref test ==="
-	cd ${CURDIR_ESCAPED} && git --no-pager diff --name-only ${TRAVIS_COMMIT_RANGE} | egrep "\.pm" | xargs -I@ echo -select @ | xargs --no-run-if-empty perl /opt/fhem/contrib/commandref_join.pl 
+	cd ${CURDIR_ESCAPED} && git --no-pager diff --diff-filter=d --name-only ${TRAVIS_COMMIT_RANGE} | egrep "\.pm" | xargs -I@ echo -select @ | xargs --no-run-if-empty perl /opt/fhem/contrib/commandref_join.pl 
 
 
 

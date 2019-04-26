@@ -36,8 +36,8 @@ deploylocal : fhem_kill
 test_%: fhem_start
 	@sudo rm -f /opt/fhem/log/fhem-*-$1.log || true
 	@d=$$(mktemp) && \
-	${TEST_RUNNER} ${@F} >> $$d 2>&1 && \
-	flock /tmp/my-lock-file cat $$d && \
+	${TEST_RUNNER} ${@F} >> $$d 2>&1 ; \
+	flock /tmp/my-lock-file cat $$d ; \
     rm $$d
 test_commandref:
 	@echo "=== running commandref test ==="

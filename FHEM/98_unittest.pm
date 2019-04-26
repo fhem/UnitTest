@@ -181,17 +181,17 @@ sub UnitTest_run
 
 
 	my @test_output_list = split "\n",$test_results{test_output};	
-    foreach my $logine(@test_output_list) {
-    		Log3 $name, 3, $logine;
+    foreach my $logline(@test_output_list) {
+    		Log3 $name, 3, $logline;
     	
     }
     my @test_failure_list = split "\n",$test_results{test_failure};	
-    foreach my $logine(@test_failure_list) {
-    		Log3 $name, 3, $logine;
+    foreach my $logline(@test_failure_list) {
+    		Log3 $name, 3, $logline;
     }
     my @test_todo_list = split "\n",$test_results{test_todo} if $test_results{test_todo};
-    foreach my $logine(@test_todo_list) {
-    		Log3 $name, 3, $logine;
+    foreach my $logline(@test_todo_list) {
+    		Log3 $name, 3, $logline;
     }
 	
 	Log3 $name, 3, "<---- Test $name ends here ----";
@@ -226,17 +226,17 @@ sub UnitTest_finished
 
 
 	my @test_output_list = split "\n",$test_results->{test_output};	
-    foreach my $logine(@test_output_list) {
-    		Log3 $name, 3, $logine;
+    foreach my $logline(@test_output_list) {
+    		Log3 $name, 3, $logline;
     	
     }
     my @test_failure_list = split "\n",$test_results->{test_failure};	
-    foreach my $logine(@test_failure_list) {
-    		Log3 $name, 3, $logine;
+    foreach my $logline(@test_failure_list) {
+    		Log3 $name, 3, $logline;
     }
     my @test_todo_list = split "\n",$test_results->{test_todo} if $test_results->{test_todo};
-    foreach my $logine(@test_todo_list) {
-    		Log3 $name, 3, $logine;
+    foreach my $logline(@test_todo_list) {
+    		Log3 $name, 3, $logline;
     }
 	
 	Log3 $name, 3, "<---- Test $name ends here ----";

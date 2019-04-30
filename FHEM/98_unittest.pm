@@ -160,25 +160,27 @@ sub UnitTest_run
 	Test::More->builder->todo_output(\$test_results{todo_output});
 	
 	# Disable warnings for prototype mismatch
-	$SIG{__WARN__} = sub {CORE::say $_[0] if $_[0] !~ /Prototype/};
+	#$SIG{__WARN__} = sub {CORE::say $_[0] if $_[0] !~ /Prototype/};
 	
-	Log3 $name, 5, "$name: Running now this code ".$hash->{'.testcode'} if ($hash->{'.testcode'});
+	Log3 $name, 5, "$name/UnitTest_run: Running now this code ".$hash->{'.testcode'} if ($hash->{'.testcode'});
+   	
 	
+	$test_results{eval} =eval $hash->{'.testcode'}  if ($hash->{'.testcode'});
 	
-	$test_results{eval} =eval $hash->{'.testcode'} if ($hash->{'.testcode'});
-
+	Test::More->builder->reset;
+	
 	# enable warnings for prototype mismatch
-	$SIG{__WARN__} = sub {CORE::say $_[0]};
-	#print Dumper(encode_json(\%test_results));
+	#$SIG{__WARN__} = sub {CORE::say $_[0]};
 	
 	unless ($test_results{eval}) {
-		Log3 $name, 5, "$name: return from eval was with error $@" ;
+		$test_results{error} = $@;
+		Log3 $name, 5, "$name/UnitTest_run: return from eval was with error $@" ;
+		$test_results{test_failure} = $test_results{test_failure}. $test_results{error}."\n";
 	}
 	if ($test_results{eval})
 	{
-		Log3 $name, 5, "$name: Test has following result: $test_results{eval}" ;
+		Log3 $name, 5, "$name/UnitTest_run: Test has following result: $test_results{eval}" ;
 	}
-
 
 	my @test_output_list = split "\n",$test_results{test_output};	
     foreach my $logline(@test_output_list) {
@@ -200,6 +202,21 @@ sub UnitTest_run
 	return encode_json(\%test_results);
 	
 }
+sub UnitTest_aborted($)
+{
+  my ($hash) = @_;
+
+
+  Log3 $hash->{NAME}, 3, $hash->{NAME}."/UnitTest_aborted: BlockingCall was aborted";
+
+  RemoveInternalTimer($hash);
+  
+  readingsBeginUpdate($hash);
+  reeadingsBulkUpdate($hash, "state", "aborted", 1);
+  readingsEndUpdate($hash,1);
+  
+}
+
 
 sub UnitTest_finished
 {
@@ -209,19 +226,18 @@ sub UnitTest_finished
 	my $test_results =decode_json($json);
 #	print Dumper(\%test_results);
 
-
 	
 	my $hash =  $defs{$test_results->{name}};	
 	
 	my $name = $hash->{NAME};
+
+	Debug "test_results:".Dumper($test_results);
 	
 
-	unless ($test_results->{eval}) {
-		Log3 $name, 5, "$name: return from eval was with error $@" ;
-	}
+	
 	if ($test_results->{eval})
 	{
-		Log3 $name, 5, "$name: Test has following result: $test_results->{eval}" ;
+		Log3 $name, 5, "$name/UnitTest_finished: Test has following result: $test_results->{eval}" ;
 	}
 
 
@@ -247,6 +263,17 @@ sub UnitTest_finished
 	readingsBulkUpdate($hash, "test_failure", $test_results->{test_failure} , 1);
 	readingsBulkUpdate($hash, "todo_output", $test_results->{todo_output} , 1);
 	readingsEndUpdate($hash,1);
+
+
+	if ($test_results->{error}) {
+		Log3 $name, 5, "$name/UnitTest_finished: return from eval was with error $@" ;
+		{
+			use Test::More;
+			plan tests => 1;
+			#BAIL_OUT( $test_results->{error});
+		}
+	}
+
 }
 
 sub UnitTest_Test_generic
@@ -255,12 +282,14 @@ sub UnitTest_Test_generic
 	# Define some generic vars for our Test
 	my $hash = shift;	
 	readingsSingleUpdate($hash, "state", "running", 1);
-	BlockingCall("UnitTest_run", $hash, "UnitTest_finished", 300);
+	Log3 $hash->{NAME}, 5, $hash->{NAME}."/UnitTest_Test_generic: starting test in subprocess" ;
+	
+	BlockingCall("UnitTest_run", $hash, "UnitTest_finished", 300,"UnitTest_aborted");
 
 	
 	
-	#UnitTest_run($hash);
-	#UnitTest_finished($hash);
+	#my $jsonReturn =UnitTest_run($hash);
+	#UnitTest_finished($jsonReturn);
 
 	#$hash->{test_output} =~ tr{\n]{ };
 	#$hash->{test_output} =~ s{\n}{\\n}g;

@@ -160,7 +160,7 @@ sub UnitTest_run
 	Test::More->builder->todo_output(\$test_results{todo_output});
 	
 	# Disable warnings for prototype mismatch
-	SSIG{__WARN__} = sub {CORE::say $_[0] if $_[0] !~ /Prototype/};
+	$SIG{__WARN__} = sub {CORE::say $_[0] if $_[0] !~ /Prototype/};
 	
 	Log3 $name, 5, "$name/UnitTest_run: Running now this code ".$hash->{'.testcode'} if ($hash->{'.testcode'});
    	

@@ -36,9 +36,12 @@ deploylocal : fhem_kill
 test_%: fhem_start
 	@sudo rm -f /opt/fhem/log/fhem-*-$1.log || true
 	@d=$$(mktemp) && \
-	${TEST_RUNNER} ${@F} >> $$d 2>&1 ; \
+	${TEST_RUNNER} ${@F} >> $$d 2>&1;\
+	RC=$$?; \
 	flock /tmp/my-lock-file cat $$d ; \
-    rm $$d
+    rm $$d;\
+    (exit $$RC);
+
 test_commandref:
 	@echo "=== running commandref test ==="
 	cd ${CURDIR_ESCAPED} && git --no-pager diff --diff-filter=d --name-only ${TRAVIS_COMMIT_RANGE} | egrep "\.pm" | xargs -I@ echo -select @ | xargs --no-run-if-empty perl /opt/fhem/contrib/commandref_join.pl 

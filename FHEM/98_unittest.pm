@@ -167,6 +167,7 @@ sub UnitTest_run
 	
 	$test_results{eval} =eval $hash->{'.testcode'}  if ($hash->{'.testcode'});
 	
+	# Reset output handlers
 	Test::More->builder->reset;
 	
 	# enable warnings for prototype mismatch
@@ -231,9 +232,9 @@ sub UnitTest_finished
 	
 	my $name = $hash->{NAME};
 
-	Debug "test_results:".Dumper($test_results);
 	
 
+	#Debug "trap_results:".Dumper($test_results);
 	
 	if ($test_results->{eval})
 	{
@@ -258,21 +259,24 @@ sub UnitTest_finished
 	Log3 $name, 3, "<---- Test $name ends here ----";
 	
 	readingsBeginUpdate($hash);
-	readingsBulkUpdate($hash, "state", "finished", 1);
 	readingsBulkUpdate($hash, "test_output", $test_results->{test_output} , 1);
 	readingsBulkUpdate($hash, "test_failure", $test_results->{test_failure} , 1);
 	readingsBulkUpdate($hash, "todo_output", $test_results->{todo_output} , 1);
-	readingsEndUpdate($hash,1);
 
 
 	if ($test_results->{error}) {
 		Log3 $name, 5, "$name/UnitTest_finished: return from eval was with error $@" ;
 		{
-			use Test::More;
-			plan tests => 1;
-			#BAIL_OUT( $test_results->{error});
+			is ( $test_results->{error}, undef, 'Expecting Test to exit without errors' );
+			
 		}
+		readingsBulkUpdate($hash, "state", "finished with error", 1);
+		
+	} else {
+		readingsBulkUpdate($hash, "state", "finished", 1);
+		
 	}
+	readingsEndUpdate($hash,1);
 
 }
 

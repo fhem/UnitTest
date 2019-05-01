@@ -165,7 +165,7 @@ sub UnitTest_run
 	Log3 $name, 5, "$name/UnitTest_run: Running now this code ".$hash->{'.testcode'} if ($hash->{'.testcode'});
    	
 	
-	$test_results{eval} =eval $hash->{'.testcode'}  if ($hash->{'.testcode'});
+	my $result =eval $hash->{'.testcode'}." 1;"  if ($hash->{'.testcode'});
 	
 	# Reset output handlers
 	Test::More->builder->reset;
@@ -173,7 +173,8 @@ sub UnitTest_run
 	# enable warnings for prototype mismatch
 	$SIG{__WARN__} = sub {CORE::say $_[0]};
 	
-	unless ($test_results{eval}) {
+	unless ($result) {
+		$test_results{eval} = $result;
 		$test_results{error} = $@;
 		Log3 $name, 5, "$name/UnitTest_run: return from eval was with error $@" ;
 		$test_results{test_failure} = $test_results{test_failure}. $test_results{error}."\n";

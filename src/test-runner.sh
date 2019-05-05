@@ -59,27 +59,24 @@ FHEM_TOKEN=$(echo $FHEM_HTTPHEADER | awk '/X-FHEM-csrfToken/{print $2}')
 
 
 printf "\n\n--------- Starting test %s: ---------\n" "$1" 
-
 # Load test definitions, and import them to our running instance
 oIFS=$IFS
 IFS=$'\n'  # Split into array at every "linebreak" 
-command eval CMD="(\$(<'${TEST_FILE}'))"
+CMD=($(sed 's/\(;\)/\1\1/g' ${TEST_FILE} ) )
+
+printf -v DEF "%s \n" "${CMD[@]}"
 IFS=$oIFS
 unset oIFS  
-command eval DEF='$(printf "%s" ${CMD[@]})'  
+
 
 CMD=$DEF
 unset DEF
 
-CMD=$( echo $CMD | sed '/{/,/}/s/;/;;/g') # double every ; 
-#echo $CMD
-#CMD=$(printf "%s" $CMD | awk 'BEGIN{RS="\n" ; ORS=" ";}{ print }' )
-#CMD=$(printf "%q" $CMD )
 
-#echo $CMD
-#RETURN=$(perl $FHEM_SCRIPT 7072 "$CMD")
-#RETURN=$(cat "../tests/$1-definition.txt" | $FHEM_SCRIPT $FHEM_PORT)
-RETURN=$(echo $CMD | $FHEM_SCRIPT $FHEM_PORT)
+
+
+
+RETURN=$($FHEM_SCRIPT $FHEM_PORT "$CMD")
 echo "$RETURN"
 
 #Wait until state of current test is finished

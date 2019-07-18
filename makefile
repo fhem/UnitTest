@@ -1,4 +1,4 @@
-.PHONY: fhem_start fhem_kill test test_all setupEnv info deploylocal clean
+.PHONY: fhem_start fhem_kill test test_all setupEnv info deploylocal clean test_commandref
 space:=
 space+=
 
@@ -44,9 +44,17 @@ test_%: fhem_start
 
 test_commandref:
 	@echo "=== running commandref test ==="
-	cd ${CURDIR_ESCAPED} && git --no-pager diff --diff-filter=d --name-only ${TRAVIS_COMMIT_RANGE} | egrep "\.pm" | xargs -I@ echo -select @ | xargs --no-run-if-empty perl /opt/fhem/contrib/commandref_join.pl 
+	$(eval CREF_RESULT="$(shell cd ${CURDIR_ESCAPED} && git --no-pager diff --diff-filter=d --name-only ${TRAVIS_COMMIT_RANGE} | egrep "\.pm" | xargs -I@ echo -select @ | xargs --no-run-if-empty perl /opt/fhem/contrib/commandref_join.pl )")
+	@if [ "$(findstring negative, $(CREF_RESULT))" = "negative" ]; then \
+		echo "error"; \
+		echo ${CREF_RESULT}; \
+		(exit 10); \
+	else \
+		echo "commandref is ok"; \
+	fi
 
-
+#	if [ "$$CREF_RESULT" =~  ]; then \
+#	fi;
 
 init: 
 	@echo "      SOURCES: $(SOURCES)"

@@ -6,6 +6,7 @@
 #												 
 
 package main;
+use v5.14;               # All 5.14 features including "say".
 use strict;
 use warnings;
 # Laden evtl. abhängiger Perl- bzw. FHEM-Module

@@ -16,11 +16,11 @@ REPO_NAME := $(shell basename -s .git `git config --get remote.origin.url`)
 ifneq ($(REPO_NAME),UnitTest)
 setupEnv:  src/fhemcl.sh src/test-runner.sh
 	@echo "=== Downloading 98_unittest.pm ->  /opt/fhem/FHEM ==="
-	@[ -d /opt/fhem/FHEM/ ] && wget -O /opt/fhem/FHEM/98_unittest.pm https://raw.githubusercontent.com/RFD-FHEM/UnitTest/master/FHEM/98_unittest.pm
+	@[ -d /opt/fhem/FHEM/ ] && wget -O /opt/fhem/FHEM/98_unittest.pm https://raw.githubusercontent.com/fhem/UnitTest/master/FHEM/98_unittest.pm
 src/%.sh:
 	@echo "=== Downloading $@ ==="
 	@mkdir -p $(MAKEFILE_DIR)/src
-	@wget -O $(MAKEFILE_DIR)/$@ https://raw.githubusercontent.com/RFD-FHEM/UnitTest/master/$@
+	@wget -O $(MAKEFILE_DIR)/$@ https://raw.githubusercontent.com/fhem/UnitTest/master/$@
 	chmod +x $(MAKEFILE_DIR)/$@
 clean:
 	@rm ${MAKEFILE_DIR}/src/fhemcl.sh && rm ${MAKEFILE_DIR}/src/test-runner.sh || true

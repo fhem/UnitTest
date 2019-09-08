@@ -74,7 +74,7 @@ unset DEF
 
 
 
-
+rm /opt/fhem/log/fhem-*$1.log
 
 RETURN=$($FHEM_SCRIPT $FHEM_PORT "$CMD")
 echo "$RETURN"

@@ -117,7 +117,8 @@ OUTPUT_FAILED=${OUTPUT_FAILED//null}
 
 if [ -z "$OUTPUT_FAILED"  ]
 then
-    if { [ $(echo $testlog | grep -Fxc "PERL WARNING") -gt 0 ] || [ $VERBOSE -eq 1 ]; }
+#    if { [ $(echo $testlog | grep -Fxc "PERL WARNING") -gt 0 ] || [ $VERBOSE -eq 1 ]; }
+    if { [ $(grep -Fxc "PERL WARNING" /opt/fhem/log/fhem-*$1.log) -gt 0 ] || [ $VERBOSE -eq 1 ]; }
 	then
 		echo "Warnings in FHEM Log snippet from test run:"
 		echo "$testlog"

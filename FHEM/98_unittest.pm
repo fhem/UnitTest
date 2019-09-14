@@ -290,17 +290,16 @@ sub UnitTest_Test_generic
 	readingsSingleUpdate($hash, "state", "running", 1);
 	Log3 $hash->{NAME}, 5, $hash->{NAME}."/UnitTest_Test_generic: starting test in subprocess" ;
 	
-	BlockingCall("UnitTest_run", $hash, "UnitTest_finished", 300,"UnitTest_aborted");
-
-	
-	
-	#my $jsonReturn =UnitTest_run($hash);
-	#UnitTest_finished($jsonReturn);
-
-	#$hash->{test_output} =~ tr{\n]{ };
-	#$hash->{test_output} =~ s{\n}{\\n}g;
+	if (AttrVal($hash->{NAME},"fork",0) )
+	{ 
+		BlockingCall("UnitTest_run", $hash, "UnitTest_finished", 300,"UnitTest_aborted");
+	} else {
+		my $jsonReturn =UnitTest_run($hash);
+		UnitTest_finished($jsonReturn);
+		$hash->{test_output} =~ tr{\n}{ };
+		$hash->{test_output} =~ s{\n}{\\n}g;
+	}
     
-
 }
 
 #

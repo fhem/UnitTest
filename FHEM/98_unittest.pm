@@ -14,6 +14,7 @@ use Mock::Sub (no_warnings => 1);
 use Test::More;
 use Data::Dumper qw(Dumper);
 use JSON qw(encode_json decode_json);
+use File::Basename;
 
 # FHEM Modulfunktionen
 
@@ -144,9 +145,12 @@ sub UnitTest_run
 	my $targetHash = $defs{$target};
 	
 	# Logfile can be changed for the forked process, but this has no effect, if this process is done.
+	my $original_logfile = $attr{global}{logfile};
 	GlobalAttr("set", "global", "logfile", "./log/fhem-%Y-%m-$name.log");
 	CommandAttr(undef,"global logfile ./log/fhem-%Y-%m-$name.log");
-
+	
+	#todo: LogFile has the wrong filename
+	$hash->{LOGFILE} = "/fhem/FileLog_logWrapper?dev=Logfile&type=text&file=".basename(InternalVal('Logfile', 'currentlogfile', 'noval')); # save current logfile into internal, to provide a link<a
 	
 	Log3 $name, 3, "---- Test $name starts here ---->";
 	
@@ -201,6 +205,7 @@ sub UnitTest_run
 	
 	Log3 $name, 3, "<---- Test $name ends here ----";
 	
+	$attr{global}{logfile}=$original_logfile;
 	
 	return encode_json(\%test_results);
 	

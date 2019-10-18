@@ -17,7 +17,7 @@ How To use this?
 
 Usage of the unitTest Module isn't very complex, but needs some basic understanding of unittests.
 
-En example can be found unter tests/test_modules-definition.txt
+An example can be found unter tests/test_modules-definition.txt
 
 Because the unittest runs as a normal fhem operation the test and the code is defined as usaual for FHEM:
 

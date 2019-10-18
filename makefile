@@ -34,13 +34,16 @@ deploylocal : fhem_kill
 	@TZ=Europe/Berlin 
 
 test_%: fhem_start
-	@sudo rm -f /opt/fhem/log/fhem-*-$1.log || true
-	@d=$$(mktemp) && \
-	${TEST_RUNNER} ${@F} >> $$d 2>&1;\
-	RC=$$?; \
-	flock /tmp/my-lock-file cat $$d ; \
-    rm $$d;\
-    (exit $$RC);
+	@if [ ! "$(findstring $@, $(SOURCES))" = "$@" ]; then \
+		echo "No file named $@"; \
+	else \
+		sudo rm -f /opt/fhem/log/fhem-*-$@.log 2&1>/dev/null || true; \
+		d=$$(mktemp) && ${TEST_RUNNER} ${@F} >> $$d 2>&1; \
+		RC=$$?; \
+		flock /tmp/my-lock-file cat $$d ; \
+		rm $$d; \
+		(exit $$RC); \
+	fi
 
 test_commandref:
 	@echo "=== running commandref test ==="
@@ -64,7 +67,7 @@ init:
 	@echo "    REPO_NAME: $(REPO_NAME)"
 	
 
-test_all: test_commandref deploylocal fhem_start |  ${SOURCES}
+test_all: test_commandref deploylocal fhem_start test_modules |  ${SOURCES}
 	@echo === TEST_ALL done ===
 
 fhem_start: deploylocal

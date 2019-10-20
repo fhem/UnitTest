@@ -212,7 +212,7 @@ sub UnitTest_run
 
 	#restore some originals
 	$attr{global}{logfile}=$original_logfile;
-	%$targetHash = %{$copyOftargetHash};
+	#%$targetHash = %{$copyOftargetHash};
 	#%{%attr{$target}} = %$copyOftargetattr; 
 
 	

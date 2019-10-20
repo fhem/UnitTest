@@ -144,6 +144,11 @@ sub UnitTest_run
 	my $target = $hash->{targetDevice};
 	my $targetHash = $defs{$target};
 	
+	
+	my %$copyOftargetHash = %{$targetHash}; # Create a copy of the hash that $targetHash points to
+	my %$copyOftargetattr = %{%attr{$target}}; # Create a copy of the attrs of $target
+	
+	
 	# Logfile can be changed for the forked process, but this has no effect, if this process is done.
 	my $original_logfile = $attr{global}{logfile};
 	GlobalAttr("set", "global", "logfile", "./log/fhem-%Y-%m-$name.log");
@@ -204,8 +209,12 @@ sub UnitTest_run
     }
 	
 	Log3 $name, 3, "<---- Test $name ends here ----";
-	
+
+	#restore some originals
 	$attr{global}{logfile}=$original_logfile;
+	%{$targetHash} = %$copyOftargetHash;
+	#%{%attr{$target}} = %$copyOftargetattr; 
+
 	
 	return encode_json(\%test_results);
 	

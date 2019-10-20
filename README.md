@@ -40,7 +40,7 @@ defmod test_modules UnitTest global (
 ```
 What does dies test do?
 It is a very basic thing, it will verify the syntax of three modules; 98_DOIF.pm, 98_DOIFtools.pm and 33_readingsGroup.pm.
-
+But be careful in combination with [Devel::Cover](https://metacpan.org/pod/Devel::Cover#Redefined-subroutines "Meta::cpan"), this test reloads the modules and causes a redefinment of all subs. So name such a test exactly "test_modules" and the makefile will run this test as the first one!
 
 
 More Information

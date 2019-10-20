@@ -145,7 +145,7 @@ sub UnitTest_run
 	my $targetHash = $defs{$target};
 	
 	
-	my %$copyOftargetHash = %{$targetHash}; # Create a copy of the hash that $targetHash points to
+	#my %$copyOftargetHash = %{$targetHash}; # Create a copy of the hash that $targetHash points to
 	#my %$copyOftargetattr = %{%attr{$target}}; # Create a copy of the attrs of $target
 	
 	

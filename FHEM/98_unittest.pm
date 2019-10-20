@@ -146,7 +146,7 @@ sub UnitTest_run
 	
 	
 	my %$copyOftargetHash = %{$targetHash}; # Create a copy of the hash that $targetHash points to
-	my %$copyOftargetattr = %{%attr{$target}}; # Create a copy of the attrs of $target
+	#my %$copyOftargetattr = %{%attr{$target}}; # Create a copy of the attrs of $target
 	
 	
 	# Logfile can be changed for the forked process, but this has no effect, if this process is done.
@@ -212,7 +212,7 @@ sub UnitTest_run
 
 	#restore some originals
 	$attr{global}{logfile}=$original_logfile;
-	%{$targetHash} = %$copyOftargetHash;
+	%$targetHash = %{$copyOftargetHash};
 	#%{%attr{$target}} = %$copyOftargetattr; 
 
 	

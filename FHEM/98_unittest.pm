@@ -1,9 +1,14 @@
-##############################################
+######################################################################
 # 98_unittest.pm 
 #
 # The file is part of the development SIGNALduino project
-# https://github.com/RFD-FHEM/RFFHEM/blob/dev-r33/test/install.md
-#												 
+#
+# Github - RFD-FHEM | Github - FHEM Home Automation System
+# https://github.com/RFD-FHEM/UnitTest | https://github.com/fhem/UnitTest
+#
+# 2018 | 2019 - sidey79
+######################################################################
+
 
 package main;
 use v5.14;               # All 5.14 features including "say".

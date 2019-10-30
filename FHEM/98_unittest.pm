@@ -1,9 +1,14 @@
-##############################################
+######################################################################
 # 98_unittest.pm 
 #
 # The file is part of the development SIGNALduino project
-# https://github.com/RFD-FHEM/RFFHEM/blob/dev-r33/test/install.md
-#												 
+#
+# Github - RFD-FHEM | Github - FHEM Home Automation System
+# https://github.com/RFD-FHEM/UnitTest | https://github.com/fhem/UnitTest
+#
+# 2018 | 2019 - sidey79
+######################################################################
+
 
 package main;
 use v5.14;               # All 5.14 features including "say".
@@ -489,7 +494,7 @@ sub UnitTest_mock_log3
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIGNALduino_IdList("x:$target","","","m9999");<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is($Log3->called_count-$ref_called_count,$ref_called_count+1,"SIGNALduino_Log3 output increased");})
   </ul><br>
-  <a href="https://github.com/RFD-FHEM/RFFHEM/blob/dev-r33/test/install.md">Other instructions can be found here.</a>
+  <a href="https://github.com/fhem/UnitTest/blob/master/install.md">Other instructions can be found here.</a>
 =end html
 
 
@@ -544,7 +549,7 @@ sub UnitTest_mock_log3
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIGNALduino_IdList("x:$target","","","m9999");<br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is($Log3->called_count-$ref_called_count,$ref_called_count+1,"SIGNALduino_Log3 output increased");})
   </ul><br>
-  <a href="https://github.com/RFD-FHEM/RFFHEM/blob/dev-r33/test/install.md">Eine weitere Anleitung finden Sie hier.</a>
+  <a href="https://github.com/RFD-FHEM/UnitTest/blob/master/install.md">Eine weitere Anleitung finden Sie hier.</a>
 =end html_DE
 
 # Ende der Commandref

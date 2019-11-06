@@ -74,9 +74,9 @@ unset DEF
 
 
 
-rm /opt/fhem/log/fhem-*$1.log
+rm -f /opt/fhem/log/fhem-*$1.log
 
-RETURN=$($FHEM_SCRIPT $FHEM_PORT "$CMD")
+RETURN=$(timeout 60 $FHEM_SCRIPT $FHEM_PORT "$CMD")
 echo "$RETURN"
 
 #Wait until state of current test is finished
@@ -88,7 +88,7 @@ a=0
 
 until [[ "$CMD_RET" =~ "finished" ]] ; do 
   sleep 1; 
-  CMD_RET=$($FHEM_SCRIPT $FHEM_PORT "$CMD")
+  CMD_RET=$(timeout 60 $FHEM_SCRIPT $FHEM_PORT "$CMD")
   if [ $a -gt "100" ]  # Limit trys
   then
   exit 254

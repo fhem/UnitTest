@@ -5,6 +5,7 @@
 # Return 7 testfile was not found
 # Return 254 no connection to fhem process possible
 # Return 255 if fhemcl.sh was not found
+
 SELF_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 FHEM_SCRIPT="${SELF_DIR}/fhemcl.sh"
@@ -64,20 +65,44 @@ oIFS=$IFS
 IFS=$'\n'  # Split into array at every "linebreak" 
 CMD=($(sed 's/\(;\)/\1\1/g' ${TEST_FILE} ) )
 
-printf -v DEF "%s \n" "${CMD[@]}"
+printf -v DEF "%s\n" "${CMD[@]}"
 IFS=$oIFS
 unset oIFS  
+#CMD=$DEF
 
-
-CMD=$DEF
+ # delimiter string
+delimiter=";;;;"
+ #length of main string
+strLen=${#DEF}
+#length of delimiter string
+dLen=${#delimiter}
+#iterator for length of string
+i=0
+#length tracker for ongoing substring
+wordLen=0
+#starting position for ongoing substring
+strP=0
+CMD=()
+while [ $i -lt $strLen ]; do
+    if [ $delimiter == ${DEF:$i:$dLen} ]; then
+        CMD+=(${DEF:strP:$wordLen})
+        strP=$(( i + dLen ))
+        wordLen=0
+        i=$(( i + dLen ))
+    fi
+    i=$(( i + 1 ))
+    wordLen=$(( wordLen + 1 ))
+done
+CMD+=(${DEF:strP:$wordLen})
+#declare -p CMD
 unset DEF
-
-
 
 rm -f /opt/fhem/log/fhem-*$1.log
 
-RETURN=$(timeout 60 $FHEM_SCRIPT $FHEM_PORT "$CMD")
-echo "$RETURN"
+for i in "${CMD[@]}"; do
+	RETURN=$(timeout 60 $FHEM_SCRIPT $FHEM_PORT "$i")
+	#echo "$RETURN"
+done
 
 #Wait until state of current test is finished
 #Todo prevent forever loop here

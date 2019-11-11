@@ -42,22 +42,4 @@ Unit Testfiles are searched in the directory test.
 
 If you call `test-runer.sh my_test_1` then this will try to load a file test/my_test_1-definition.
 
-### Writing my first unittest ### 
-Define a new test with
-
-defmod my_Test_1 UnitTest dummyDuino ({} ) 
-
-Now you have a placeholder for defining your code.
-Open the DEF from this device an put any perl code inside the {} brackets.
-
-Note: the Name dummyDuino must be the name of a existing definition you want to run tests on. If you startet fhem with the provided minimal `fhem-ut.cfg`, then there is no Device of type SIGNALduino named dummyDuino. You can also use the Device WEB or global.
-
-In your testcode you can run any perl command.
-
-Additionally there are a few variables provided 
-
-$hash = the hash of the UnitTest Definition
-$name = The Name of the UnitTest Definition
-$target = The Name of the provided Targetdevice which is under test. Provided in DEF from this UnitTest device. In our example dummyDuino.
-$targetHash = Hash from the Targetdevice which is under test.
 

@@ -59,7 +59,7 @@ FHEM_TOKEN=$(echo $FHEM_HTTPHEADER | awk '/X-FHEM-csrfToken/{print $2}')
 #echo $RETURN
 
 
-printf "\n\n--------- Starting test %s: ---------\n" "$1" 
+printf "\n\n--------- Starting test %s-definition.txt: ---------\n" "$1" 
 # Load test definitions, and import them to our running instance
 oIFS=$IFS
 IFS=$'\n'  # Split into array at every "linebreak" 
@@ -132,7 +132,7 @@ CMD="jsonlist2 $1 test_output test_failure todo_output"
 OUTPUT=$($FHEM_SCRIPT $FHEM_PORT "$CMD" | jq '.Results[].Readings | {test_output, test_failure, todo_output} | del(.[][] | select(. == ""))')
 #OUTPUT=$(curl -s --data "fwcsrf=$FHEM_TOKEN" "$FHEM_HOST:$FHEM_PORT/fhem?cmd=$CMD&XHR=1" | jq '.Results[].Readings | {test_output, test_failure, todo_output} | del(.[][] | select(. == ""))')
 OUTPUT_FAILED=$(echo $OUTPUT | jq '.test_failure.Value')
-testlog=$(awk '/Test '"$1"' starts here ---->/,/<---- Test '"$1"' ends here/' /opt/fhem/log/fhem-*$1.log)
+testlog=$(awk '/Test '"$1-definition.txt"' starts here ---->/,/<---- Test '"$1-definition.txt"' ends here/' /opt/fhem/log/fhem-*$1.log)
 
 OUTPUT_CLEAN=$(echo $OUTPUT | jq -r '.[].Value')
 
@@ -161,7 +161,7 @@ else
 	status="error"
 fi
 
-printf "\n\n--------- Test %s: %s ---------\n" "$1" "$status"
+printf "\n\n--------- Test %s-definition.txt: %s ---------\n" "$1" "$status"
 
 if [ $status == "error" ] 
 then

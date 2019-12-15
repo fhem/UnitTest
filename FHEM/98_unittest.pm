@@ -56,6 +56,13 @@ sub UnitTest_Define() {
 		return $msg;
 	}
 	$hash->{targetDevice}  = $target;
+	if (!IsDevice($target))
+	{
+		my $msg = "$target is not an existing Device";
+		Log3 undef, 2, $name.": ".$msg;
+		return $msg;
+		
+	}
 	Log3 $name, 2, "$name: Defined unittest for target: ".$hash->{targetDevice} if ($hash->{targetDevice});
 	Log3 $name, 5, "$name: DEV is $cmd";
     

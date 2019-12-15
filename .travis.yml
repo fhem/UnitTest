@@ -22,15 +22,9 @@ before_install:
 - echo "deb http://debian.fhem.de/nightly/ /" | sudo tee -a /etc/apt/sources.list
 install:
 - sudo apt-get update -qq
-- cpanm File::Find File::Basename Mock::Sub Test::More Test::Device::SerialPort JSON
-  --notest
+- cpanm File::Find File::Basename Mock::Sub Test::More Test::Device::SerialPort JSON --notest
 - sudo apt-get install fhem -qq -y
 - sudo chown travis -R /opt/fhem
 script:
-- make test -j2
+- make test 
 - make fhem_kill
-- "./build_controls_list.sh"
-- git commit -m "Travis automatic update controls file. Build (${TRAVIS_BUILD_NUMBER})
-  [skip ci]" ./controls_unittest.txt || true
-- if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [[ $TRAVIS_JOB_NUMBER == *.1 ]]; then
-  git push origin HEAD:$TRAVIS_BRANCH ; fi

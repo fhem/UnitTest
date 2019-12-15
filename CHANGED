@@ -1,0 +1,7 @@
+2019-12-15 - Merge pull request #6 from fhem/patch-controlsgen
+
+Create controls and CHANGED file via githubactions instead of travis ci
+
+2019-12-15 - CHANGED
+
+Added empty file

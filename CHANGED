@@ -1,30 +1,3 @@
-2019-12-15 - Corrected filename of controls_unittest.txt
-
-98_unittest.pm
-
-modified file header
-
-Automaitc updated controls and CHANGED
-
-update.yml  corrected filename
-
-Automaitc updated controls and CHANGED
-2019-12-15 - Corrected filename of controls_unittest.txt
-
-98_unittest.pm
-
-modified file header
-
-Automaitc updated controls and CHANGED
-2019-12-15 - Corrected filename of controls_unittest.txt
-2019-12-15 - Merge pull request #7 from fhem/check-IsDevice
-
-Check is device
-2019-12-15 - Merge branch 'master' into check-IsDevice
-2019-12-15 - Merge pull request #6 from fhem/patch-controlsgen
-
-Create controls and CHANGED file via githubactions instead of travis ci
-
-2019-12-15 - CHANGED
-
-Added empty file
+2019-12-15 
+- bugfix: check if target IsDevice is true
+- feature: Create controls and CHANGED file via githubactions instead of travis ci

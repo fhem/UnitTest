@@ -1,3 +1,4 @@
+2019-12-15 - Merge branch 'master' into patch-controls
 2019-12-15 
 - bugfix: check if target IsDevice is true
 - feature: Create controls and CHANGED file via githubactions instead of travis ci

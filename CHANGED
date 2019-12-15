@@ -1,14 +1,4 @@
-2019-12-15 - Update controls_unittest.txt
-
-- revised file size manually for update command
-2019-12-15 - Merge pull request #7 from fhem/check-IsDevice
-
-Check is device
-2019-12-15 - Merge branch 'master' into check-IsDevice
-2019-12-15 - Merge pull request #6 from fhem/patch-controlsgen
-
-Create controls and CHANGED file via githubactions instead of travis ci
-
-2019-12-15 - CHANGED
-
-Added empty file
+2019-12-15 - Merge branch 'master' into patch-controls
+2019-12-15 
+- bugfix: check if target IsDevice is true
+- feature: Create controls and CHANGED file via githubactions instead of travis ci

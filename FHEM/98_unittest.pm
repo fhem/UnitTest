@@ -3,7 +3,6 @@
 #
 # The file is part of the development SIGNALduino project
 #
-# Github - RFD-FHEM | Github - FHEM Home Automation System
 # https://github.com/RFD-FHEM/UnitTest | https://github.com/fhem/UnitTest
 #
 # 2018 | 2019 - sidey79

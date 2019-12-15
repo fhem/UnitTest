@@ -5,7 +5,7 @@ on: [push]
 jobs:
   update:
     env:
-      CONTROLS_FILENAME: controls_unittestl.txt 
+      CONTROLS_FILENAME: controls_unittest.txt 
     runs-on: ubuntu-latest
     steps: 
     - name: Extract branch name
@@ -16,7 +16,7 @@ jobs:
     - name: update controls files
       uses: fhem/fhem-controls-actions@master
       with:
-        filename: controls_rsl.txt 
+        filename: controls_unittest.txt 
     - name: update CHANGED
       run: |
         LOG=$(date +"%Y-%m-%d") 
@@ -26,7 +26,7 @@ jobs:
       run: |
         git config --global user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add  CHANGED controls_rsl.txt || true
+        git add  CHANGED controls_unittest.txt || true
         git log -1 --name-only --pretty=format: | grep -Eo '[0-9]{2}_.*.pm$' && git commit CHANGED controls_unittest.txt -m "Automaitc updated controls and CHANGED" || true
     - name: git push
       uses: ad-m/github-push-action@master

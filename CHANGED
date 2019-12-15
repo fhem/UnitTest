@@ -1,3 +1,6 @@
+2019-12-15 - Update controls_unittest.txt
+
+- revised file size manually for update command
 2019-12-15 - Merge pull request #7 from fhem/check-IsDevice
 
 Check is device

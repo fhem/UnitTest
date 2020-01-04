@@ -74,7 +74,7 @@ sub UnitTest_Define() {
 
 		## Test starten wenn Fhem bereits initialisiert wurde	
 		if  ($init_done) {
-			InternalTimer(gettimeofday()+1, 'UnitTest_Test_generic',$hash,0);
+			InternalTimer(gettimeofday()+0.1, 'UnitTest_Test_generic',$hash,0);
 		}
 	} else {
 		readingsSingleUpdate($hash, "state", "inactive", 1);
@@ -113,7 +113,7 @@ sub UnitTest_Attr(@) {
 		readingsSingleUpdate($hash, "state", "waiting", 1);
 		Log3 $name, 3, "$name: is enabled";
 		
-		InternalTimer(gettimeofday()+1, 'UnitTest_Test_generic',$hash,0);
+		InternalTimer(gettimeofday()+0.1, 'UnitTest_Test_generic',$hash,0);
 	}
 	return undef;
 }

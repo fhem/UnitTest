@@ -1,3 +1,6 @@
+2020-01-05 - src/fhemcl.sh
+
+Optimizes speed by moving url-encode out of bash into curl command which has very much faster implementation
 2020-01-04 - 98_unittest.pm
 
 reduced time to start test vom 1 sec to 0.1 sec

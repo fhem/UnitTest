@@ -1,3 +1,6 @@
+2020-01-08 - test-runner.sh
+script will send a "rereadcfg" before loading of every testfile
+this will provide a defined config before starting a test
 2020-01-05 - src/fhemcl.sh
 
 Optimizes speed by moving url-encode out of bash into curl command which has very much faster implementation

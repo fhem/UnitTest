@@ -53,13 +53,17 @@ do
 	fi
 	a=$((a+1))
 done
-FHEM_TOKEN=$(echo $FHEM_HTTPHEADER | awk '/X-FHEM-csrfToken/{print $2}')
+FHEM_TOKEN=$(echo $FHEM_HTTPHEADER | awk '/^X-FHEM-csrfToken/{print $2}')
 
 #RETURN=$(echo "reload 98_UnitTest" | /bin/nc localhost 7072)
 #echo $RETURN
 
 
 printf "\n\n--------- Starting test %s-definition.txt: ---------\n" "$1" 
+# Execute rereadcfg to get a clean setup
+REREADCFG=$(timeout 60 $FHEM_SCRIPT $FHEM_PORT "rereadcfg")
+echo "Response from rereadcfg: ${REREADCFG}\n" 
+
 # Load test definitions, and import them to our running instance
 oIFS=$IFS
 IFS=$'\n'  # Split into array at every "linebreak" 

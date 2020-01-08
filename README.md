@@ -10,7 +10,7 @@ How to install
 ======
 The Perl modules can be loaded directly into your FHEM installation:
 
-```update all https://raw.githubusercontent.com/RFD-FHEM/UnitTest/master/controls_unittest.txt```
+```update all https://raw.githubusercontent.com/fhem/UnitTest/master/controls_unittest.txt```
 
 
 ### Writing my first unittest ### 

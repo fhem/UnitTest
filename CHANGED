@@ -1,4 +1,9 @@
 2020-01-11 - test-runner.sh
+removed shutdown restart because this starts perl without devel::cover
+
+makefile
+Implemented a shutdown and a new process of fhem (takes very long time)
+2020-01-11 - test-runner.sh
 
 switch from rereadcfg to shutdownrestat
 2020-01-08 - test-runner.sh

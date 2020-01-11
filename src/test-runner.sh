@@ -61,8 +61,8 @@ FHEM_TOKEN=$(echo $FHEM_HTTPHEADER | awk '/^X-FHEM-csrfToken/{print $2}')
 
 printf "\n\n--------- Starting test %s-definition.txt: ---------\n" "$1" 
 # Execute rereadcfg to get a clean setup
-REREADCFG=$(timeout 60 $FHEM_SCRIPT $FHEM_PORT "rereadcfg")
-echo "Response from rereadcfg: ${REREADCFG}\n" 
+REREADCFG=$(timeout 60 $FHEM_SCRIPT $FHEM_PORT "shutdown restart")
+echo "Response from stutdown restart: ${REREADCFG}\n" 
 
 # Load test definitions, and import them to our running instance
 oIFS=$IFS

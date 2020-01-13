@@ -1,3 +1,4 @@
+2020-01-13 - run test in github actions (experimental)
 2020-01-11 - test-runner.sh
 removed shutdown restart because this starts perl without devel::cover
 

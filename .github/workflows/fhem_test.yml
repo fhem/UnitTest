@@ -1,0 +1,40 @@
+name: Fhem UnitTest
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: shogo82148/actions-setup-perl@v1
+      with:
+        perl-version: '5.22'
+    - run: cpanm --notest --installdeps .
+    - name: install fhem via deb package
+      run: |
+        wget -qO - http://debian.fhem.de/archive.key | sudo apt-key add -
+        echo "deb http://debian.fhem.de/nightly/ /" | sudo tee -a /etc/apt/sources.list
+        sudo apt-get update -qq
+        sudo apt-get install fhem -y
+        sudo chown -R --reference=Makefile /opt/fhem
+        sudo systemctl stop fhem
+    - name: run make test
+      run: |
+        timeout 40 bash -c 'while /usr/bin/pgrep perl >> /dev/null; do sleep 1; echo .; done;'
+        make test && sudo pkill "^perl"
+        timeout 40 bash -c 'while /usr/bin/pgrep perl >> /dev/null; do sleep 1; echo .; done;' || sudo pkill "^perl"
+        sleep 3
+        cp -R /opt/fhem/cover_db ./
+      shell: bash {0}
+#   - name: show logs
+#      run: |
+#        cat /opt/fhem/log/*
+    - name: Create clover report  
+#      run: cover -report codecov
+      run: cover -report clover
+    - uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./cover_db/clover.xml
+        flags: unittests
+        name: code coverage

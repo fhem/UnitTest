@@ -1,3 +1,6 @@
+2020-01-14 - evan dclone
+
+Added Even around dclone and added test to verify dclone
 2020-01-11 - test-runner.sh
 removed shutdown restart because this starts perl without devel::cover
 

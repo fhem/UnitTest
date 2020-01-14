@@ -4,13 +4,18 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: ['ubuntu-latest']
+        perl: [ '5.22', '5.28' ]
+    name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
     - uses: actions/checkout@master
       with:
         fetch-depth: 0
     - uses: shogo82148/actions-setup-perl@v1
       with:
-        perl-version: '5.22'
+        perl-version: ${{ matrix.perl }}
     - run: cpanm --notest --installdeps .
     - name: install fhem via deb package
       run: |

@@ -167,8 +167,10 @@ sub UnitTest_run
 	
 	# Logfile can be changed for the forked process, but this has no effect, if this process is done.
 	my $original_logfile = $attr{global}{logfile};
-	my %copyOfTargetHash = %{ dclone( $defs{$target} ) };
-	
+	my %copyOfTargetHash;
+	eval {
+		%copyOfTargetHash = %{ dclone( $defs{$target} ) };
+	};
 		
 	GlobalAttr("set", "global", "logfile", "./log/fhem-%Y-%m-$name.log");
 	CommandAttr(undef,"global logfile ./log/fhem-%Y-%m-$name.log");

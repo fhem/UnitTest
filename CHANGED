@@ -1,3 +1,4 @@
+2020-01-19 - Merge branch 'dclone-crashFix' of github.com:fhem/UnitTest into dclone-crashFix
 2020-01-14 - evan dclone
 
 Added Even around dclone and added test to verify dclone

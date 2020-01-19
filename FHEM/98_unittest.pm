@@ -322,12 +322,13 @@ sub UnitTest_Test_generic
 	# Define some generic vars for our Test
 	my $hash = shift;	
 	readingsSingleUpdate($hash, "state", "running", 1);
-	Log3 $hash->{NAME}, 5, $hash->{NAME}."/UnitTest_Test_generic: starting test in subprocess" ;
 	
 	if (AttrVal($hash->{NAME},"fork",0) )
 	{ 
+		Log3 $hash->{NAME}, 5, $hash->{NAME}."/UnitTest_Test_generic: starting test in subprocess";
 		BlockingCall("UnitTest_run", $hash, "UnitTest_finished", 300,"UnitTest_aborted");
 	} else {
+		Log3 $hash->{NAME}, 5, $hash->{NAME}."/UnitTest_Test_generic: starting test in mainprocess";
 		my $jsonReturn =UnitTest_run($hash);
 		UnitTest_finished($jsonReturn);
 		$hash->{test_output} =~ tr{\n}{ };

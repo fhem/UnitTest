@@ -15,7 +15,8 @@ use strict;
 use warnings;
 # Laden evtl. abhängiger Perl- bzw. FHEM-Module
 use Mock::Sub (no_warnings => 1);
-use Test::More;
+use Test2::V0;
+use Test2::Tools::Compare;
 use Data::Dumper qw(Dumper);
 use JSON qw(encode_json decode_json);
 use File::Basename;

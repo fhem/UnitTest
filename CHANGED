@@ -1,3 +1,6 @@
+2020-01-20 - makefile
+
+removed shutdown restart between tests - this scales very bad
 2020-01-19 - 98_unittest.pm
 
 Adapted logmessage for fork / mainprocess version

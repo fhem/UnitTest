@@ -1,3 +1,8 @@
+2020-05-09 - 98_unittest.pm
+
+Save module refs as real coderefs
+regex to split define arguments
+reduced delay calling test from 100ms to 10ms
 2020-01-20 - makefile
 
 removed shutdown restart between tests - this scales very bad

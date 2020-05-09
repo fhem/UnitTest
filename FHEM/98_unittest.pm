@@ -5,7 +5,7 @@
 #
 # https://github.com/RFD-FHEM/UnitTest | https://github.com/fhem/UnitTest
 #
-# 2018 | 2019 - sidey79
+# 2018 | 2019 | 2020 - sidey79
 ######################################################################
 
 
@@ -19,9 +19,9 @@ use Test::More;
 use Data::Dumper qw(Dumper);
 use JSON qw(encode_json decode_json);
 use File::Basename;
-use Storable (qw/dclone/);
+use Storable qw(store retrieve freeze thaw dclone);
 
-# FHEM weitee Variablen
+# FHEM weite Variablen
 our %defs;
 our %attr;
 
@@ -34,10 +34,10 @@ $Storable::Eval    = 1;  # Same as above
 
 sub UnitTest_Initialize() {
 	my ($hash) = @_;
-	$hash->{DefFn}         = "UnitTest_Define";
-	$hash->{UndefFn}       = "UnitTest_Undef";
-	$hash->{NotifyFn}      = "UnitTest_Notify";
-	$hash->{AttrFn}        = "UnitTest_Attr";
+	$hash->{DefFn}         = \&UnitTest_Define;
+	$hash->{UndefFn}       = \&UnitTest_Undef;
+	$hash->{NotifyFn}      = \&UnitTest_Notify;
+	$hash->{AttrFn}        = \&UnitTest_Attr;
 	$hash->{AttrList}      = "do_not_notify:1,0 disable:0,1 " .
 							 "$readingFnAttributes ";
 }
@@ -45,10 +45,10 @@ sub UnitTest_Initialize() {
 sub UnitTest_Define() {
 	my ( $hash, $def ) = @_;
    
-    my ($name,$type,$target,$cmd) = split('[ \t]+', $def,4);
+    my ($name,$type,$target,$cmd) =split m{\s+}xms, $def, 4;
 
 	#if (!$cmd || (not $cmd =~ m/^[(].*[)]$/g)) {
-	if (!$cmd || $cmd !~ m/(?:\(.*\)).*$/s) {
+	if (!$cmd || $cmd !~ m/(?:\(.+\)).*$/s) {
 		my $msg = "wrong syntax: define <name> UnitTest <name of target device> (Test Code in Perl)";
 		Log3 undef, 2, $name.": ".$msg;
 		Log3 undef, 5, "$name: cmd was: $cmd";
@@ -74,7 +74,7 @@ sub UnitTest_Define() {
 
 		## Test starten wenn Fhem bereits initialisiert wurde	
 		if  ($init_done) {
-			InternalTimer(gettimeofday()+0.1, 'UnitTest_Test_generic',$hash,0);
+			InternalTimer(gettimeofday()+0.01, 'UnitTest_Test_generic',$hash,0);
 		}
 	} else {
 		readingsSingleUpdate($hash, "state", "inactive", 1);
@@ -168,8 +168,7 @@ sub UnitTest_run
 	# Logfile can be changed for the forked process, but this has no effect, if this process is done.
 	my $original_logfile = $attr{global}{logfile};
 	my %copyOfTargetHash = %{ dclone( $defs{$target} ) };
-	
-		
+	#my $copy = freeze $defs{$target};
 	GlobalAttr("set", "global", "logfile", "./log/fhem-%Y-%m-$name.log");
 	CommandAttr(undef,"global logfile ./log/fhem-%Y-%m-$name.log");
 	
@@ -235,6 +234,8 @@ sub UnitTest_run
 	CommandAttr(undef,"global logfile $original_logfile");
 	delete($defs{$target});
 	$defs{$target} = \%copyOfTargetHash;
+	#$defs{$target} = \%{thaw $copy};
+	#Debug "restoredTargetHash   ".Dumper($defs{$target});	
 	
 	return encode_json(\%test_results);
 	

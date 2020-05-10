@@ -7,7 +7,7 @@ PERL_OPTS?=
 	
 MAKEFILE_DIR:=$(subst $(space),\$(space),$(shell dirname $(subst $(space),\$(space),$(realpath $(lastword $(MAKEFILE_LIST))))))
 CURDIR_ESCAPED := $(subst $(space),\$(space),$(CURDIR))
-SOURCES := $(shell test -d ${MAKEFILE_DIR}/tests && find ${MAKEFILE_DIR}/tests -maxdepth 1 -name 'test_*-definition.txt')
+SOURCES := $(shell test -d ${MAKEFILE_DIR}/tests && find ${MAKEFILE_DIR}/tests -maxdepth 1 -name 'test_*-definition.txt | sort -z')
 SOURCES := $(subst -definition.txt,,$(filter test%-definition.txt,$(notdir $(SOURCES))))
 TEST_RUNNER := ${MAKEFILE_DIR}/src/test-runner.sh
 REPO_NAME := $(shell basename -s .git `git config --get remote.origin.url`)

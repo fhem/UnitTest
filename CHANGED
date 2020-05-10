@@ -1,3 +1,4 @@
+2020-05-10 - Merge branch 'master' of github.com:fhem/UnitTest
 2020-05-09 - src/test-runner.sh
 
 reduced sleep between checks if test is finished from 1sec to 200 ms

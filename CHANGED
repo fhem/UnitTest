@@ -1,9 +1,25 @@
-2021-01-24 - Merge branch 'ghactions-test' of github.com:fhem/UnitTest into ghactions-test
-2021-01-24 - Update versions  and add dependabot config
-2020-01-14 - added badge
+2021-01-24 - 
+ - added dependabot config
+ - run github actions workflow and also on pull requests
+ - update perl verson matrix
 
-run workflow also on pull requests
-2020-01-14 - update matrix
+2020-05-10 - makefile
+fixed sort
+2020-05-10 - Merge branch 'master' of github.com:fhem/UnitTest
+2020-05-09 - src/test-runner.sh
+
+reduced sleep between checks if test is finished from 1sec to 200 ms
+2020-05-09 - 98_unittest.pm
+
+Save module refs as real coderefs
+regex to split define arguments
+reduced delay calling test from 100ms to 10ms
+2020-01-20 - makefile
+
+removed shutdown restart between tests - this scales very bad
+2020-01-19 - 98_unittest.pm
+
+Adapted logmessage for fork / mainprocess version
 2020-01-11 - test-runner.sh
 removed shutdown restart because this starts perl without devel::cover
 

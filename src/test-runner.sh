@@ -116,7 +116,7 @@ CMD_RET=""
 a=0
 
 until [[ "$CMD_RET" =~ "finished" ]] ; do 
-  sleep 1; 
+  sleep 0.2; 
   CMD_RET=$(timeout 60 $FHEM_SCRIPT $FHEM_PORT "$CMD")
   if [ $a -gt "100" ]  # Limit trys
   then

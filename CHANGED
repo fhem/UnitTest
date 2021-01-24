@@ -1,3 +1,12 @@
+2021-01-24 - Merge branch 'ghactions-test' of github.com:fhem/UnitTest into ghactions-test
+2021-01-24 - Run Update Workflow only if needed
+2021-01-24 - Renamed travis yml
+2021-01-24 - Merge branch 'master' into ghactions-test
+2021-01-24 - 
+ - added dependabot config
+ - run github actions workflow and also on pull requests
+ - update perl verson matrix
+
 2020-05-10 - makefile
 fixed sort
 2020-05-10 - Merge branch 'master' of github.com:fhem/UnitTest

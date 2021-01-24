@@ -1,5 +1,6 @@
 UnitTest - FHEM Module
 ======
+[![codecov](https://codecov.io/gh/fhem/UnitTest/branch/ghactions-test/graph/badge.svg)](https://codecov.io/gh/fhem/UnitTest)
 
 
 FHEM Module for developers who want to run unittests

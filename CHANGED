@@ -1,3 +1,6 @@
+2021-01-24 - 98_unittest:
+Removed Test::More  and do not use Test::More->builder anymore.
+Try compatibility with fhem testmode
 2021-01-24 - Ghactions test (#11)
 
 * run test in github actions

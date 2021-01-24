@@ -1,11 +1,12 @@
 ######################################################################
 # 98_unittest.pm 
 #
-# The file is part of the development SIGNALduino project
+# The file was created as part of the SIGNALduino project 
+# but can be used for other tests also
 #
 # https://github.com/RFD-FHEM/UnitTest | https://github.com/fhem/UnitTest
 #
-# 2018 | 2019 | 2020 - sidey79
+# 2018 | 2019 | 2020 | 2021 | - sidey79
 ######################################################################
 
 
@@ -15,7 +16,7 @@ use strict;
 use warnings;
 # Laden evtl. abhängiger Perl- bzw. FHEM-Module
 use Mock::Sub (no_warnings => 1);
-use Test::More;
+#use Test::More;
 use Data::Dumper qw(Dumper);
 use JSON qw(encode_json decode_json);
 use File::Basename;
@@ -183,9 +184,10 @@ sub UnitTest_run
 	$test_results{test_failure}="";
 	$test_results{todo_output}="";
 	# Redirect Test Output to internals
-	Test::More->builder->output(\$test_results{test_output});
-	Test::More->builder->failure_output(\$test_results{test_failure});
-	Test::More->builder->todo_output(\$test_results{todo_output});
+	
+	#Test::More->builder->output(\$test_results{test_output});
+	#Test::More->builder->failure_output(\$test_results{test_failure});
+	#Test::More->builder->todo_output(\$test_results{todo_output});
 	
 	# Disable warnings for prototype mismatch
 	$SIG{__WARN__} = sub {CORE::say $_[0] if $_[0] !~ /Prototype/};
@@ -196,7 +198,8 @@ sub UnitTest_run
 	my $result =eval $hash->{'.testcode'}." 1;"  if ($hash->{'.testcode'});
 	
 	# Reset output handlers
-	Test::More->builder->reset;
+	
+	#Test::More->builder->reset;
 	
 	# enable warnings for prototype mismatch
 	$SIG{__WARN__} = sub {CORE::say $_[0]};

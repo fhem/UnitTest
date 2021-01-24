@@ -38,7 +38,6 @@ test_%: fhem_start
 	@if [ ! "$(findstring $@, $(SOURCES))" = "$@" ]; then \
 		echo "No file named $@"; \
 	else \
-		cd /opt/fhem && perl ${PERL_OPTS} fhem.pl fhem_ut.cfg && cd ${CURDIR_ESCAPED};\
 		sudo rm -f /opt/fhem/log/fhem-*-$@.log 2&1>/dev/null || true; \
 		d=$$(mktemp) && ${TEST_RUNNER} ${@F} >> $$d 2>&1; \
 		RC=$$?; \

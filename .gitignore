@@ -33,3 +33,14 @@ inc/
 /MANIFEST.bak
 /pm_to_blib
 /*.zip
+
+# Local vscode dir & files
+.vscode
+/.vstags
+/.project
+/workspace.code-workspace
+/deploy.sh
+
+# Local patchfile
+*.patch
+

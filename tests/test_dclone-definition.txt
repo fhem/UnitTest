@@ -8,7 +8,7 @@ defmod test_dclone UnitTest autocreate (
 		my %copyOfTargetHash = %{ dclone( $defs{$target} ) };
 		$defs{global}{logMethod} = \&main::Log;	
 
-		#is(exists($copyOfTargetHash->{logMethod}, 1, "cloned hash is defined ");
+		is(exists($copyOfTargetHash->{logMethod}, 1, "cloned hash is defined ");
 		$defs{$target} = \%copyOfTargetHash;
 		
 	}; 

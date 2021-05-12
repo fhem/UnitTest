@@ -18,7 +18,7 @@ jobs:
     - name: Checkout Repostory
       uses: actions/checkout@master
     - name: update controls files
-      uses: fhem/fhem-controls-actions@v2
+      uses: fhem/fhem-controls-actions@v2.0.1
       with:
         filename: controls_unittest.txt 
     - name: update CHANGED

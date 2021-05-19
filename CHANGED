@@ -1,3 +1,21 @@
+2021-05-19 - Bump actions/checkout from 2 to 2.3.4 (#27)
+
+* Bump actions/checkout from 2 to 2.3.4
+
+Bumps [actions/checkout](https://github.com/actions/checkout) from 2 to 2.3.4.
+- [Release notes](https://github.com/actions/checkout/releases)
+- [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/actions/checkout/compare/v2...v2.3.4)
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+* Automaitc updated controls and CHANGED
+
+* Automaitc updated controls and CHANGED
+
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Co-authored-by: GitHub Action <action@github.com>
+Co-authored-by: sidey79 <7968127+sidey79@users.noreply.github.com>
 2021-05-12 - Merge branch 'master' into dependabot/github_actions/actions/checkout-2.3.4
 2021-05-12 - Bump actions/checkout from 2 to 2.3.4
 

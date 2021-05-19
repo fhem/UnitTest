@@ -1,3 +1,6 @@
+2021-05-19 - Dclone crash fix (#12)
+
+Added Eval around dclone and added test to verify dclone
 2021-05-19 - Merge branch 'master' into dclone-crashFix
 2021-05-19 - modified device under test
 

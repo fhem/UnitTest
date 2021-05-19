@@ -10,10 +10,10 @@ jobs:
         perl: [ '5.22', '5.24', '5.26','5.28' ]
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.3.4
       with:
         fetch-depth: 0
-    - uses: shogo82148/actions-setup-perl@v1.10.1
+    - uses: shogo82148/actions-setup-perl@v1.12.0
       with:
         perl-version: ${{ matrix.perl }}
     - run: cpanm --notest --installdeps .
@@ -45,7 +45,7 @@ jobs:
     - name: Create clover report  
 #      run: cover -report codecov
       run: cover -report clover
-    - uses: codecov/codecov-action@v1
+    - uses: codecov/codecov-action@v1.5.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ./cover_db/clover.xml

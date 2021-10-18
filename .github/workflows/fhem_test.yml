@@ -45,7 +45,7 @@ jobs:
     - name: Create clover report  
 #      run: cover -report codecov
       run: cover -report clover
-    - uses: codecov/codecov-action@v2.0.3
+    - uses: codecov/codecov-action@v2.1.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ./cover_db/clover.xml
